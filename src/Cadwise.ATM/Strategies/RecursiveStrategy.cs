@@ -3,6 +3,9 @@
 /// <summary>
 /// Стратегия выбора купюр без размена
 /// </summary>
+/// <remarks>
+/// Почему одинаковый код в разных стратегиях нельзя считать дублированием: https://gromkov.me/blog/2021/11/30/clean-architecture-about-code-duplication
+/// </remarks>
 public class RecursiveStrategy : IBanknotesSelectionStrategy
 {
     public Dictionary<int, int> CalculateBanknotesForAmount(int amount, IEnumerable<AtmCashCassette> cashCassettes)

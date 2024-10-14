@@ -22,24 +22,24 @@ while (true)
             case Menu.AddCash:
                 var denomination = AnsiConsole.Prompt(new SelectionPrompt<int>()
                     .Title("Какие купюры?")
-                    .AddChoices([5000,2000,1000,500,200,100,50,10]));
+                    .AddChoices(atm.GetCassettes().Select(x => x.BanknoteDenomination)));
                 var count = AnsiConsole.Prompt(new TextPrompt<int>("Сколько штук?"));
                 var notLoaded = atm.Load(denomination, count);
 
                 if (notLoaded > 0)
                 {
-                    AnsiConsole.WriteLine($"В банкомат не поместилось {notLoaded} купюр");    
+                    AnsiConsole.WriteLine($"В банкомат не поместилось {notLoaded} купюр");
                 }
-                
+
                 PrintCash(atm);
-                
+
                 var more = AnsiConsole.Prompt(new ConfirmationPrompt("Докинем ещё?") { DefaultValue = true });
                 if (more)
                 {
                     AnsiConsole.Clear();
                     goto case Menu.AddCash;
                 }
-                
+
                 break;
             case Menu.GetCash:
                 var amount = AnsiConsole.Prompt(new TextPrompt<int>("Сколько тебе надо?"));
@@ -64,7 +64,7 @@ while (true)
                 Environment.Exit(0);
                 break;
         }
-        
+
         Console.ReadKey();
     }
     catch (BusinessLogicException ex)
